@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="bde0fa0f-34e3-4daf-93aa-23b4a610e2d2" activeEnvironment="Default" name="SOAP Audioteca" resourceRoot="" soapui-version="5.2.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="e012ad7b-f14b-4fab-a655-d0680936ecd7" wsaVersion="NONE" name="SongControllerH2ImplServiceSoapBinding" type="wsdl" bindingName="{http://controller.pojos.songs.soap.module4.aaa.formacion.nett/}SongControllerH2ImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/services/audioteca?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/services/audioteca?wsdl"><con:part><con:url>http://localhost:8080/services/audioteca?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="SongControllerH2ImplService" targetNamespace="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+<con:soapui-project id="bde0fa0f-34e3-4daf-93aa-23b4a610e2d2" activeEnvironment="Default" name="SOAP Audioteca" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="e012ad7b-f14b-4fab-a655-d0680936ecd7" wsaVersion="NONE" name="SongControllerH2ImplServiceSoapBinding" type="wsdl" bindingName="{http://controller.pojos.songs.soap.module4.aaa.formacion.nett/}SongControllerH2ImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:9080/services/audioteca?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:9080/services/audioteca?wsdl"><con:part><con:url>http://localhost:9080/services/audioteca?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="SongControllerH2ImplService" targetNamespace="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
   <wsdl:types>
     <xs:schema elementFormDefault="unqualified" targetNamespace="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:element name="addSong" type="tns:addSong"/>
       <xs:element name="addSongResponse" type="tns:addSongResponse"/>
+      <xs:element name="author" type="tns:author"/>
       <xs:element name="deleteSong" type="tns:deleteSong"/>
+      <xs:element name="deleteSongById" type="tns:deleteSongById"/>
+      <xs:element name="deleteSongByIdResponse" type="tns:deleteSongByIdResponse"/>
       <xs:element name="deleteSongResponse" type="tns:deleteSongResponse"/>
       <xs:element name="getAllSongs" type="tns:getAllSongs"/>
       <xs:element name="getAllSongsResponse" type="tns:getAllSongsResponse"/>
+      <xs:element name="getPopularArtist" type="tns:getPopularArtist"/>
+      <xs:element name="getPopularArtistResponse" type="tns:getPopularArtistResponse"/>
       <xs:element name="getSongsByAuthorName" type="tns:getSongsByAuthorName"/>
       <xs:element name="getSongsByAuthorNameResponse" type="tns:getSongsByAuthorNameResponse"/>
       <xs:element name="getSongsByTitle" type="tns:getSongsByTitle"/>
       <xs:element name="getSongsByTitleResponse" type="tns:getSongsByTitleResponse"/>
+      <xs:element name="getSongsByYear" type="tns:getSongsByYear"/>
+      <xs:element name="getSongsByYearResponse" type="tns:getSongsByYearResponse"/>
+      <xs:element name="song" type="tns:song"/>
       <xs:element name="updateSong" type="tns:updateSong"/>
       <xs:element name="updateSongResponse" type="tns:updateSongResponse"/>
       <xs:complexType name="addSong">
@@ -21,22 +29,38 @@
       </xs:complexType>
       <xs:complexType name="song">
         <xs:sequence>
-          <xs:element minOccurs="0" name="airedDate" type="xs:dateTime"/>
+          <xs:element name="title" type="xs:string"/>
           <xs:element minOccurs="0" name="album" type="xs:string"/>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="authors" nillable="true" type="tns:author"/>
-          <xs:element minOccurs="0" name="time" type="xs:string"/>
-          <xs:element minOccurs="0" name="title" type="xs:string"/>
+          <xs:element name="time" type="xs:string"/>
+          <xs:element minOccurs="0" name="airedDate" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="authors">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="author" type="tns:author"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="author">
         <xs:sequence>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element name="type" type="tns:authorType"/>
           <xs:element minOccurs="0" name="firstPerformance" type="xs:dateTime"/>
           <xs:element minOccurs="0" name="isActive" type="xs:boolean"/>
-          <xs:element minOccurs="0" name="name" type="xs:string"/>
-          <xs:element minOccurs="0" name="type" type="tns:authorType"/>
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="addSongResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:song"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="deleteSongById">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:long"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="deleteSongByIdResponse">
         <xs:sequence>
           <xs:element minOccurs="0" name="return" type="tns:song"/>
         </xs:sequence>
@@ -65,6 +89,24 @@
         <xs:sequence/>
       </xs:complexType>
       <xs:complexType name="getAllSongsResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:song"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPopularArtist">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="getPopularArtistResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:author"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getSongsByYear">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getSongsByYearResponse">
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:song"/>
         </xs:sequence>
@@ -100,8 +142,38 @@
   <wsdl:message name="addSong">
     <wsdl:part element="tns:addSong" name="parameters"></wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getPopularArtist">
+    <wsdl:part element="tns:getPopularArtist" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteSongByIdResponse">
+    <wsdl:part element="tns:deleteSongByIdResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteSongResponse">
+    <wsdl:part element="tns:deleteSongResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSongsByYear">
+    <wsdl:part element="tns:getSongsByYear" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSongsByTitle">
+    <wsdl:part element="tns:getSongsByTitle" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllSongsResponse">
+    <wsdl:part element="tns:getAllSongsResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSongsByAuthorNameResponse">
+    <wsdl:part element="tns:getSongsByAuthorNameResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPopularArtistResponse">
+    <wsdl:part element="tns:getPopularArtistResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteSongById">
+    <wsdl:part element="tns:deleteSongById" name="parameters"></wsdl:part>
+  </wsdl:message>
   <wsdl:message name="getSongsByAuthorName">
     <wsdl:part element="tns:getSongsByAuthorName" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSongsByYearResponse">
+    <wsdl:part element="tns:getSongsByYearResponse" name="parameters"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="deleteSong">
     <wsdl:part element="tns:deleteSong" name="parameters"></wsdl:part>
@@ -115,28 +187,20 @@
   <wsdl:message name="updateSongResponse">
     <wsdl:part element="tns:updateSongResponse" name="parameters"></wsdl:part>
   </wsdl:message>
-  <wsdl:message name="deleteSongResponse">
-    <wsdl:part element="tns:deleteSongResponse" name="parameters"></wsdl:part>
-  </wsdl:message>
   <wsdl:message name="getSongsByTitleResponse">
     <wsdl:part element="tns:getSongsByTitleResponse" name="parameters"></wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getSongsByTitle">
-    <wsdl:part element="tns:getSongsByTitle" name="parameters"></wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getAllSongsResponse">
-    <wsdl:part element="tns:getAllSongsResponse" name="parameters"></wsdl:part>
-  </wsdl:message>
   <wsdl:message name="updateSong">
     <wsdl:part element="tns:updateSong" name="parameters"></wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getSongsByAuthorNameResponse">
-    <wsdl:part element="tns:getSongsByAuthorNameResponse" name="parameters"></wsdl:part>
   </wsdl:message>
   <wsdl:portType name="SongController">
     <wsdl:operation name="addSong">
       <wsdl:input message="tns:addSong" name="addSong"></wsdl:input>
       <wsdl:output message="tns:addSongResponse" name="addSongResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteSongById">
+      <wsdl:input message="tns:deleteSongById" name="deleteSongById"></wsdl:input>
+      <wsdl:output message="tns:deleteSongByIdResponse" name="deleteSongByIdResponse"></wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="getSongsByAuthorName">
       <wsdl:input message="tns:getSongsByAuthorName" name="getSongsByAuthorName"></wsdl:input>
@@ -149,6 +213,14 @@
     <wsdl:operation name="getAllSongs">
       <wsdl:input message="tns:getAllSongs" name="getAllSongs"></wsdl:input>
       <wsdl:output message="tns:getAllSongsResponse" name="getAllSongsResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularArtist">
+      <wsdl:input message="tns:getPopularArtist" name="getPopularArtist"></wsdl:input>
+      <wsdl:output message="tns:getPopularArtistResponse" name="getPopularArtistResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSongsByYear">
+      <wsdl:input message="tns:getSongsByYear" name="getSongsByYear"></wsdl:input>
+      <wsdl:output message="tns:getSongsByYearResponse" name="getSongsByYearResponse"></wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="getSongsByTitle">
       <wsdl:input message="tns:getSongsByTitle" name="getSongsByTitle"></wsdl:input>
@@ -167,6 +239,15 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="addSongResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteSongById">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="deleteSongById">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteSongByIdResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
@@ -197,6 +278,24 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getPopularArtist">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPopularArtist">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPopularArtistResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSongsByYear">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getSongsByYear">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getSongsByYearResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getSongsByTitle">
       <soap:operation soapAction="" style="document"/>
       <wsdl:input name="getSongsByTitle">
@@ -218,38 +317,35 @@
   </wsdl:binding>
   <wsdl:service name="SongControllerH2ImplService">
     <wsdl:port binding="tns:SongControllerH2ImplServiceSoapBinding" name="SongControllerH2ImplPort">
-      <soap:address location="http://localhost:8080/services/audioteca"/>
+      <soap:address location="http://localhost:9080/services/audioteca"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/services/audioteca</con:endpoint></con:endpoints><con:operation id="dba2c72f-ff75-40ed-857a-02b53bec0ce4" isOneWay="false" action="" name="addSong" bindingOperationName="addSong" type="Request-Response" outputName="addSongResponse" inputName="addSong" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e07952f4-cabe-4129-929a-ca7425ff942c" name="addSong"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/services/audioteca</con:endpoint><con:endpoint>http://localhost:9080/services/audioteca</con:endpoint></con:endpoints><con:operation id="dba2c72f-ff75-40ed-857a-02b53bec0ce4" isOneWay="false" action="" name="addSong" bindingOperationName="addSong" type="Request-Response" outputName="addSongResponse" inputName="addSong" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e07952f4-cabe-4129-929a-ca7425ff942c" name="addSong"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">
    <soapenv:Header/>
    <soapenv:Body>
       <con:addSong>
          <!--Optional:-->
          <arg0>
+            <airedDate>1986-04-05</airedDate>
+			<title>Thiller</title>
             <!--Optional:-->
-            <airedDate>2016-09-05</airedDate>
-            <!--Optional:-->
-            <album>Life</album>
+            <album>Thiller</album>
+			<time>05:21</time>
             <!--Zero or more repetitions:-->
             <authors>
-               <!--Optional:-->
-               <firstPerformance>2011-08-15</firstPerformance>
-               <!--Optional:-->
-               <isActive>true</isActive>
-               <!--Optional:-->
-               <name>Baron Lavatt</name>
-               <!--Optional:-->
-               <type>SINGLE_ARTIST</type>
+				<author>
+				   <type>SINGLE_ARTIST</type>
+				   <name>Michael Jackson</name>
+				   <!--Optional:-->
+				   <firstPerformance>1955-02-15</firstPerformance>
+				   <!--Optional:-->
+				   <isActive>false</isActive>
+			   </author>
             </authors>
-            <!--Optional:-->
-            <time>54:60</time>
-            <!--Optional:-->
-            <title>Fly again on a fire room</title>
          </arg0>
       </con:addSong>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/addSong"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="cdf534dd-5dd5-47cc-aa1c-bd82f50af2f6" isOneWay="false" action="" name="deleteSong" bindingOperationName="deleteSong" type="Request-Response" outputName="deleteSongResponse" inputName="deleteSong" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="04c0a0f5-2d3f-432c-b1be-657a783b3960" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/addSong"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="cdf534dd-5dd5-47cc-aa1c-bd82f50af2f6" isOneWay="false" action="" name="deleteSong" bindingOperationName="deleteSong" type="Request-Response" outputName="deleteSongResponse" inputName="deleteSong" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="04c0a0f5-2d3f-432c-b1be-657a783b3960" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <con:deleteSong>\r
@@ -277,23 +373,23 @@
          </arg0>\r
       </con:deleteSong>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/deleteSong"/></con:call></con:operation><con:operation id="1d7f6e7b-f05a-4983-8a87-21ed34d2bf22" isOneWay="false" action="" name="getSongsByAuthorName" bindingOperationName="getSongsByAuthorName" type="Request-Response" outputName="getSongsByAuthorNameResponse" inputName="getSongsByAuthorName" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8401326c-3f85-4c7a-90df-171b6644eba7" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/deleteSong"/></con:call></con:operation><con:operation id="1d7f6e7b-f05a-4983-8a87-21ed34d2bf22" isOneWay="false" action="" name="getSongsByAuthorName" bindingOperationName="getSongsByAuthorName" type="Request-Response" outputName="getSongsByAuthorNameResponse" inputName="getSongsByAuthorName" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8401326c-3f85-4c7a-90df-171b6644eba7" name="getSongsByAuthorName"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <con:getSongsByAuthorName>\r
          <!--Optional:-->\r
-         <arg0>?</arg0>\r
+         <arg0>Jackson</arg0>\r
       </con:getSongsByAuthorName>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/getSongsByAuthorName"/></con:call></con:operation><con:operation id="86086795-d11f-428b-ac24-ce9183808a21" isOneWay="false" action="" name="getSongsByTitle" bindingOperationName="getSongsByTitle" type="Request-Response" outputName="getSongsByTitleResponse" inputName="getSongsByTitle" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="13afd5d7-0d61-4f84-8e77-4e86df1ef41e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/getSongsByAuthorName"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="86086795-d11f-428b-ac24-ce9183808a21" isOneWay="false" action="" name="getSongsByTitle" bindingOperationName="getSongsByTitle" type="Request-Response" outputName="getSongsByTitleResponse" inputName="getSongsByTitle" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="13afd5d7-0d61-4f84-8e77-4e86df1ef41e" name="getSongByTitle"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <con:getSongsByTitle>\r
          <!--Optional:-->\r
-         <arg0>?</arg0>\r
+         <arg0>World</arg0>\r
       </con:getSongsByTitle>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/getSongsByTitle"/></con:call></con:operation><con:operation id="46d91e74-969b-4ec4-a0c7-da726fbbd04e" isOneWay="false" action="" name="updateSong" bindingOperationName="updateSong" type="Request-Response" outputName="updateSongResponse" inputName="updateSong" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="785725af-2f7d-4da9-b8fe-4b9652af51e5" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/getSongsByTitle"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="46d91e74-969b-4ec4-a0c7-da726fbbd04e" isOneWay="false" action="" name="updateSong" bindingOperationName="updateSong" type="Request-Response" outputName="updateSongResponse" inputName="updateSong" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="785725af-2f7d-4da9-b8fe-4b9652af51e5" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <con:updateSong>\r
@@ -321,9 +417,30 @@
          </arg0>\r
       </con:updateSong>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/updateSong"/></con:call></con:operation><con:operation id="14219e0f-49b5-4e10-a3ee-29d1df02b041" isOneWay="false" action="" name="getAllSongs" bindingOperationName="getAllSongs" type="Request-Response" outputName="getAllSongsResponse" inputName="getAllSongs" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2925d337-5019-4923-9dc9-fca9b6084b1b" name="getAllSongs"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/updateSong"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="14219e0f-49b5-4e10-a3ee-29d1df02b041" isOneWay="false" action="" name="getAllSongs" bindingOperationName="getAllSongs" type="Request-Response" outputName="getAllSongsResponse" inputName="getAllSongs" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2925d337-5019-4923-9dc9-fca9b6084b1b" name="getAllSongs"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <con:getAllSongs/>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/getAllSongs"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/getAllSongs"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="047f676a-045f-47c6-ac8b-cca649cb5843" isOneWay="false" action="" name="deleteSongById" bindingOperationName="deleteSongById" type="Request-Response" outputName="deleteSongByIdResponse" inputName="deleteSongById" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="22c77ffc-51e0-4398-8b7e-732bc1f2d2e5" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <con:deleteSongById>\r
+         <!--Optional:-->\r
+         <arg0>?</arg0>\r
+      </con:deleteSongById>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/deleteSongById"/></con:call></con:operation><con:operation id="b47697b2-daa4-40ec-b321-fb0dcac0e0a2" isOneWay="false" action="" name="getSongsByYear" bindingOperationName="getSongsByYear" type="Request-Response" outputName="getSongsByYearResponse" inputName="getSongsByYear" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8fa8d5e6-62e0-4a2d-bcaa-8e2f34034312" name="getSongsByYear"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <con:getSongsByYear>\r
+         <!--Optional:-->\r
+         <arg0>2016</arg0>\r
+      </con:getSongsByYear>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/getSongsByYear"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="c6871995-efa8-4318-9601-73722504f96a" isOneWay="false" action="" name="getPopularArtist" bindingOperationName="getPopularArtist" type="Request-Response" outputName="getPopularArtistResponse" inputName="getPopularArtist" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="da35bb75-39df-4615-9c40-8a7a9c41b949" name="getPopularArtist"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9080/services/audioteca</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <con:getPopularArtist/>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://controller.pojos.songs.soap.module4.aaa.formacion.nett/SongController/getPopularArtist"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

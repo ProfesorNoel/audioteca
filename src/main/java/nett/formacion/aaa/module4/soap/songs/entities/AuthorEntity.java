@@ -36,13 +36,30 @@ public class AuthorEntity {
 	@JoinColumn(name = "songId", nullable=true)*/
 	
 	
-	@ManyToOne
+	@ManyToOne(optional=false)
+	@JoinColumn(name="songId", referencedColumnName="songId")
 	private SongEntity songEntity;
 	
 	public AuthorEntity() {
 		super();
 	}
 
+	private void buildAuthor()
+	{
+		if (this.author == null)
+		{
+			Author a = new Author ();
+			
+			a.setFirstPerformance(this.firstPerformance);
+			a.setIsActive(this.isActive);
+			a.setName(this.name);
+			a.setType(this.getType());
+			
+			this.author = a;
+		}
+	}
+	
+	
 	public AuthorEntity(Author author) {
 		super();
 		this.firstPerformance = author.getFirstPerformance();
@@ -62,7 +79,9 @@ public class AuthorEntity {
 		this.authorId = authorId;
 	}
 
-	public Author getAuthor() {
+	public Author getAuthor() 
+	{
+		this.buildAuthor();
 		return author;
 	}
 
@@ -103,5 +122,13 @@ public class AuthorEntity {
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 		this.author.setIsActive(isActive);
+	}
+
+	public SongEntity getSongEntity() {
+		return songEntity;
+	}
+
+	public void setSongEntity(SongEntity songEntity) {
+		this.songEntity = songEntity;
 	}
 }

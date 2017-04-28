@@ -1,15 +1,32 @@
 package nett.formacion.aaa.module4.soap.songs.pojos;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "song")
+@XmlAccessorType(XmlAccessType.NONE)
+@XmlType (propOrder={"title","album","time","airedDate","authors"})
 public class Song {
 
+	@XmlElement (name ="airedDate", required = false)
 	private Date airedDate;
+	@XmlElement (name ="title", required = true)
 	private String title;
+	@XmlElement (name ="album", required = false)
 	private String album;
+	@XmlElement (name ="time", required = true)
 	private String time;
 	
+	@XmlElementWrapper(name="authors", required = false)
+	@XmlElement (name ="author")
 	private List <Author> authors;
 	
 	public Song() {
@@ -71,4 +88,15 @@ public class Song {
 		
 		return sb.toString();
 	}
+	
+	public void addAuthor(Author author)
+	{
+		if (this.authors == null)
+		{
+			this.authors = new ArrayList <Author> ();
+			
+			this.authors.add(author);
+		}
+	}
+	
 }

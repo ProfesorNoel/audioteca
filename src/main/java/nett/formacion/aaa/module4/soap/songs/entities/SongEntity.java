@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -37,15 +38,46 @@ public class SongEntity {
 	
 	//@OneToMany(mappedBy="songs", cascade = CascadeType.ALL, fetch=FetchType.EAGER )
 	
-	@OneToMany(mappedBy = "songEntity")
+	@OneToMany(mappedBy = "songEntity", targetEntity=AuthorEntity.class, fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List <AuthorEntity> authors = new ArrayList <AuthorEntity> ();
 	
-	@ManyToOne
+	//@ManyToOne
 	@Transient
 	private Song song;
 	
 	public SongEntity() {
 		super();
+	}
+	
+	private void buildSong()
+	{
+		if (this.song == null)
+		{
+			Song s = new Song();
+			
+			s.setTitle(this.title);
+			s.setTime(this.time);
+			s.setAlbum(this.album);
+			s.setAiredDate(this.airedDate);
+			
+			List <AuthorEntity> authorsList = this.authors;
+			
+			if (authorsList != null && !authorsList.isEmpty())
+			{
+				for (AuthorEntity ae : authorsList)
+				{
+					Author a = new Author();
+					a.setName(ae.getName());
+					a.setIsActive(ae.getIsActive());
+					a.setFirstPerformance(ae.getFirstPerformance());
+					a.setType(ae.getType());
+					
+					s.addAuthor(a);
+				}
+			}
+			
+			this.song = s;
+		}
 	}
 	
 	public SongEntity(Song song) {
@@ -59,7 +91,10 @@ public class SongEntity {
 		{
 			for (Author a : song.getAuthors())
 			{
-				this.authors.add(new AuthorEntity (a));
+				AuthorEntity ae = new AuthorEntity (a);
+				ae.setSongEntity(this);
+				
+				this.authors.add(ae);
 			}
 		}
 		
@@ -75,6 +110,9 @@ public class SongEntity {
 	}
 
 	public Song getSong() {
+		
+		this.buildSong();
+		
 		return song;
 	}
 

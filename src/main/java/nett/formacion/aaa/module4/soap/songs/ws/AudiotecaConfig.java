@@ -1,11 +1,20 @@
 package nett.formacion.aaa.module4.soap.songs.ws;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.h2.server.web.WebServlet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import nett.formacion.aaa.module4.soap.songs.pojos.controller.SongController;
 import nett.formacion.aaa.module4.soap.songs.pojos.controller.SongControllerH2Impl;

@@ -2,11 +2,24 @@ package nett.formacion.aaa.module4.soap.songs.pojos;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "author")
+@XmlAccessorType(XmlAccessType.NONE)
+@XmlType (propOrder={"name","type","firstPerformance","isActive"})
 public class Author {
 
+	@XmlElement (name ="type", required = true)
 	private AuthorType type;
+	@XmlElement (name ="name", required = true)
 	private String name;
+	@XmlElement (name ="firstPerformance", required = false)
 	private Date firstPerformance;
+	@XmlElement (name ="isActive", required = false)
 	private Boolean isActive = false;
 	
 	public Author() {

@@ -22,7 +22,7 @@ public class WebServiceConfig {
 	}
 	
 	@Autowired
-    private SongController audioteca; // your web service component
+    private SongController audioteca; // web service component
 
     @Bean
     public ServletRegistrationBean wsDispatcherServlet() {
@@ -36,7 +36,8 @@ public class WebServiceConfig {
     }
 
     @Bean
-    public Endpoint helloWorldEndpoint() {
+    public Endpoint audiotecaEndpoint() {
+    //public Endpoint helloWorldEndpoint() {
         EndpointImpl endpoint = new EndpointImpl(springBus(), this.audioteca);
         endpoint.publish("audioteca");
         return endpoint;

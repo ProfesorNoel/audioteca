@@ -96,4 +96,22 @@ public class SongControllerImpl implements SongController{
 		
 		return this.mockResponseList();
 	}
+
+	@Override
+	public Song deleteSongById(Long songId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Song> getSongsByYear(Integer year) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Author> getPopularArtist() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
